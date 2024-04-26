@@ -1,7 +1,9 @@
 import requests as req
 from bs4 import BeautifulSoup as bs
 import pandas as pd
+import datetime
 
+current_date = datetime.datetime.now().strftime("%Y-%m-%d")
 res = req.get("https://music.bugs.co.kr/chart")
 soup = bs(res.text, "lxml")
 
@@ -23,4 +25,5 @@ chart_df = pd.DataFrame({
 })
 
 # JSON 파일로 저장
-chart_df.to_json("bugsChart100.json", force_ascii=False, orient="records")
+file_name = f"bugsChart100_{current_date}.json"
+chart_df.to_json(file_name, force_ascii=False, orient="records")
